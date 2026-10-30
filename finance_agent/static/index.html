@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>观澜 · 金融研究助手</title><link rel="stylesheet" href="/static/style.css"></head>
+<body>
+<aside class="sidebar">
+  <a class="brand" href="/" aria-label="观澜首页"><span class="brand-mark">观</span><span>观澜<small>FINANCIAL INTELLIGENCE</small></span></a>
+  <div class="workspace-label">个人研究工作台</div>
+  <nav aria-label="主导航">
+    <button class="nav-item active" data-view="overview"><span>◈</span>研究概览</button>
+    <button class="nav-item" data-view="news"><span>▤</span>动态追踪</button>
+    <button class="nav-item" data-view="data"><span>▥</span>数据看板</button>
+    <button class="nav-item" data-view="assistant"><span>✧</span>研究助手</button>
+    <button class="nav-item" data-view="settings"><span>⚙</span>关注与来源</button>
+  </nav>
+  <div class="sidebar-bottom"><div class="connection-dot"></div>本地工作空间<small>数据保存在这台电脑</small><span class="version">GUANLAN / V1.0</span></div>
+</aside>
+<main>
+  <header class="topbar"><div><span class="eyebrow">RESEARCH DESK</span><span id="today"></span></div><div class="top-actions"><span id="collect-status" role="status"></span><button id="refresh" class="primary">↻&nbsp; 更新资料</button></div></header>
+  <section id="view-overview" class="view">
+    <div class="page-intro"><div><div class="eyebrow accent">YOUR DAILY PERSPECTIVE</div><h1>银行与金融科技观察</h1><p>追踪公司动态与行业变化，让每一条信息都有据可查。</p></div><button class="quiet" id="digest">查看近期简报 ↗</button></div>
+    <div id="stats" class="stats"></div>
+    <div class="overview-grid"><article class="panel financial-panel"><div class="panel-heading"><div><span class="eyebrow">BANK FUNDAMENTALS</span><h2>银行财务趋势</h2></div><select id="overview-company" aria-label="概览财务公司"></select></div><div id="overview-metric"></div><div id="overview-chart" class="chart"></div><div class="panel-foot">总资产 · 期末值 · 银行主体口径 <button class="text-button" data-jump="data">查看全部指标 →</button></div></article>
+    <article class="panel distribution"><div class="panel-heading"><div><span class="eyebrow">SIGNAL DISTRIBUTION</span><h2>事件分布</h2></div><span class="muted">已采集范围</span></div><div id="categories"></div><div class="insight-note">统计已采集条目，反映当前信息来源的覆盖情况，不代表全市场事件总量。</div></article></div>
+    <div class="section-heading"><div><span class="eyebrow">LATEST SIGNALS</span><h2>值得跟进的动态</h2></div><button class="text-button" data-jump="news">全部动态 →</button></div>
+    <div id="latest-news" class="news-grid"></div>
+    <div class="source-strip" id="source-strip"></div>
+  </section>
+  <section id="view-news" class="view hidden"><div class="page-intro"><div><span class="eyebrow accent">SIGNAL FEED</span><h1>动态追踪</h1><p>按公司、行业与时间筛选，阅读原文证据。</p></div><a class="quiet" href="/api/export/articles">导出 CSV ↓</a></div>
+    <div class="filter-bar"><label class="searchbox">⌕ <input id="news-search" placeholder="搜索标题或正文" aria-label="搜索动态"></label><select id="news-company" aria-label="公司筛选"><option value="">全部公司</option></select><select id="news-industry" aria-label="行业筛选"><option value="">全部行业</option><option>金融科技</option><option>银行</option></select><select id="news-days" aria-label="时间筛选"><option value="0">全部时间</option><option value="7">最近 7 天</option><option value="30">最近 30 天</option><option value="90">最近 90 天</option></select></div><article class="panel"><div class="panel-heading"><h2>信息发布节奏</h2><span class="muted">按披露月份统计当前筛选结果</span></div><div id="news-timeline"></div></article><p id="news-count" class="muted"></p><div id="news-list" class="news-list"></div>
+  </section>
+  <section id="view-data" class="view hidden"><div class="page-intro"><div><span class="eyebrow accent">DATA EXPLORER</span><h1>数据看板</h1><p>可比口径、真实数值，以及随时可以回看的来源。</p></div><a class="quiet" href="/api/export/metrics">导出指标 CSV ↓</a></div>
+    <div class="filter-bar"><select id="data-company" aria-label="财务公司"></select><select id="data-metric" aria-label="财务指标"><option>总资产</option><option>存款</option><option>净利润</option><option>资产回报率</option></select></div>
+    <article class="panel"><div class="panel-heading"><div><h2 id="data-title"></h2><p id="data-scope" class="muted"></p></div><span class="tag">官方结构化数据</span></div><div id="data-chart" class="chart large"></div><div id="data-evidence" class="evidence-hint">点击图上的数据点查看原始记录。</div></article>
+    <div class="section-heading"><h2>指标明细</h2><span class="muted">缺失值不补零；不同币种和期间不混算</span></div><div class="table-scroll"><table><thead><tr><th>披露期间</th><th>指标</th><th>数值</th><th>口径</th><th>来源</th></tr></thead><tbody id="metric-table"></tbody></table></div>
+  </section>
+  <section id="view-assistant" class="view hidden"><div class="page-intro"><div><span class="eyebrow accent">RESEARCH ASSISTANT</span><h1>问问观澜</h1><p>基于已采集资料回答，结论附来源；没有资料时明确说明。</p></div><span class="tag" id="ai-status"></span></div>
+    <div class="assistant-layout"><div><div class="suggestions"><button data-question="中电金信最近30天动态">中电金信最近有什么动态？</button><button data-question="摩根大通银行总资产">摩根大通银行的资产趋势</button><button data-question="银行最近30天政策">近期银行监管政策</button></div><div id="conversation" aria-live="polite"><div class="assistant-welcome"><span>✧</span><h2>从一个业务问题开始</h2><p>公司动态、行业政策，或银行的财务指标。</p></div></div><form id="ask-form"><textarea id="question" placeholder="例如：中电金信最近 30 天动态" rows="2" maxlength="500" required aria-label="研究问题"></textarea><div><small>仅查询已采集资料</small><button class="primary" id="ask-submit">发送问题 ↑</button></div></form></div><aside class="panel assistant-side"><h3>飞书群助手</h3><p>在群里 @ 机器人，使用同一套资料进行查询；也支持简报推送。</p><div id="feishu-status"></div><button class="quiet" id="feishu-guide">查看接入步骤 ↗</button><hr><h3>使用记录</h3><p class="muted">最近 30 天，按实际请求记录。</p><div id="usage-stats"></div></aside></div>
+  </section>
+  <section id="view-settings" class="view hidden"><div class="page-intro"><div><span class="eyebrow accent">WATCHLIST & SOURCES</span><h1>关注与来源</h1><p>管理公司清单、采集来源和运行状态。</p></div></div>
+    <article class="panel"><div class="panel-heading"><h2>关注公司</h2><span class="muted">添加关注不会自动增加数据源</span></div><div id="watchlist"></div><form id="watch-form" class="inline-form"><input name="name" placeholder="公司名称" required maxlength="60" aria-label="公司名称"><input name="aliases" placeholder="别名，以逗号分隔" aria-label="公司别名"><select name="industry" aria-label="公司行业"><option>金融科技</option><option>银行</option></select><button class="primary">添加关注</button></form></article>
+    <div class="section-heading"><h2>数据来源</h2><button class="quiet" id="add-source">＋ 添加来源</button></div><div id="sources"></div>
+    <div class="section-heading"><h2>最近运行</h2><span class="muted">失败可重新采集，不重复入库</span></div><div class="table-scroll"><table><thead><tr><th>来源</th><th>开始时间</th><th>状态</th><th>新增 / 更新 / 未变</th><th>指标数</th><th>备注</th></tr></thead><tbody id="runs"></tbody></table></div>
+  </section>
+  <footer class="main-footer"><span>观澜 · 个人金融研究助手</span><span>PUBLIC SOURCES · TRACEABLE EVIDENCE</span></footer>
+</main>
+<dialog id="detail-modal"><button class="close-modal" aria-label="关闭">×</button><div id="detail-body"></div></dialog>
+<dialog id="source-modal"><button class="close-modal" aria-label="关闭">×</button><h2>添加公开资料源</h2><p class="muted">优先使用官方 RSS；HTML 采集只跟随同站点的文章链接。</p><form id="source-form" class="stack-form"><label>来源名称<input name="name" required maxlength="100" placeholder="某公司投资者关系"></label><label>来源类型<select name="kind"><option value="rss">RSS / Atom 订阅</option><option value="html">HTML 公告列表</option></select></label><label>公开网址<input name="url" type="url" required placeholder="https://..."></label><div class="two-col"><label>行业<select name="industry"><option>金融科技</option><option>银行</option></select></label><label>关联公司<input name="company" placeholder="可留空"></label></div><div id="html-fields" class="hidden"><label>文章链接特征<input name="link_contains" placeholder="例如 /detail/"></label><label>列表 CSS 选择器<input name="selector" value="a[href]"></label><label>正文 CSS 选择器<input name="content_selector" placeholder="例如 article 或 .content"></label></div><button class="primary">保存来源</button></form></dialog>
+<div id="toast" class="toast hidden" role="status"></div><script src="/static/app.js"></script>
+</body></html>

@@ -1,0 +1,6 @@
+fastapi==0.162.0
+uvicorn==0.54.0
+httpx==0.28.1
+beautifulsoup4==4.15.0
+feedparser==6.0.14
+lark-oapi==1.7.5
